@@ -1,0 +1,38 @@
+<div class="game-container">
+  <div class="board">
+    <div
+      *ngFor="let cellColor of cellColors; let i = index"
+      class="cell"
+      [style.backgroundColor]="cellColor"
+      (click)="clickCell(i)"
+    ></div>
+  </div>
+  <div class="score">
+    <p>Your Score: {{ playerScore }}</p>
+    <p>Computer Score: {{ computerScore }}</p>
+  </div>
+  <div class="start-button">
+    <input
+      type="number"
+      [(ngModel)]="delay"
+      placeholder="Enter delay (in ms)"
+    />
+    <button (click)="startGame(delay)">Start</button>
+  </div>
+</div>
+
+
+<div
+  class="modal-overlay"
+  [ngClass]="{ 'show-modal': showModal, 'hide-modal': !showModal }"
+>
+  <div class="modal">
+    <h2 *ngIf="playerScore > computerScore" class="modal-title">You Won</h2>
+    <h2 *ngIf="computerScore > playerScore" class="modal-title">You Lost</h2>
+    <div class="modal-content">
+      <p>Your Score: {{ playerScore }}</p>
+      <p>Computer Score: {{ computerScore }}</p>
+    </div>
+    <button class="modal-close-btn" (click)="resetGame()">Play Again</button>
+  </div>
+</div>
